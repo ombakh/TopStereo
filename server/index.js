@@ -1,14 +1,14 @@
 // index.js
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // express
 app.use(express.json());
 
 // routes
 app.get('/', (req, res) => {
-    res.send('Hello, world!');
+    res.send('Hello, from backend!');
 });
 
 // start
