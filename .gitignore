@@ -2,6 +2,9 @@
 client/node_modules/
 server/node_modules/
 
+#IDE ignore
+.idea/
+
 # Build outputs
 client/build/
 server/dist/
