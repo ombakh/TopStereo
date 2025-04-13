@@ -1,22 +1,51 @@
 import React, { useState } from 'react';
 import './Grid.css';
+import topStereoLogo from "./topstereo.png";
+import plusLogo from "./plus.png";
 
 const Grid = () => {
     const gridSize = 5; //5x5 grid
     const totalCells = gridSize * gridSize;
-    const [gridData, setGridData] = useState(Array(totalCells).fill(null));
+    const [gridData] = useState(Array(totalCells).fill(null));
 
     return (
-        <div className="grid">
+        <div>
+            <img
+                src={topStereoLogo}
+                alt="TopStereo Logo"
+                style={{
+                    position: 'absolute',
+                    top: '20px',
+                    left: '40px',
+                    width: '200px',
+                    zIndex: 1000
+                }}
+                />
+
+        <div className="searchBox">
+            <input placeholder="Enter Album Title..." />
+        </div>
+        <div className="grid"
+             style={{
+                 position: 'absolute',
+                 left: '50%',
+                 transform: 'translateX(-50%)',
+                 top: '150px'
+             }}>
+
             {gridData.map((album, i) => (
                 <div key={i} className="grid-cell">
+
                     {album ? (
-                        <img src={album} alt="album cover" />
+                        <img src={album} alt="album cover"/>
                     ) : (
-                        <span className="placeholder">+</span>
+                        <span className="placeholder"><img src={plusLogo} alt="plus.png"
+                                                           style={{width: '50px', height: '50px'}}/>
+                        </span>
                     )}
                 </div>
             ))}
+        </div>
         </div>
     );
 };
