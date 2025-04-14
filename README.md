@@ -1,7 +1,7 @@
 # TopStereo
-![topstereo.png](topstereo.png)
+<img src="topstereo.png" alt="topster" width="200"/>
 Replacement for the discontinued "Topster2". Album art collage maker
 
-Current Stack:
-React
-Node.js with Express
+## Current Stack:
+- React
+- Node.js with Express
