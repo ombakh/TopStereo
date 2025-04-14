@@ -22,8 +22,21 @@ const Grid = () => {
                 }}
                 />
 
-        <div className="searchBox">
-            <input placeholder="Enter Album Title..." />
+        <div className="searchBox" style={{
+            position: 'absolute',
+            top: "250px",
+            left: "75px",
+            border: '3px solid black',
+            backgroundColor: "lightpink",
+            height: '500px',
+            width: "300px",
+            boxSizing: 'border-box'
+        }}>
+            <input placeholder="Enter Album Title..." style={{
+
+                transform: 'translateX(50%)',
+            }}/>
+
         </div>
         <div className="grid"
              style={{
