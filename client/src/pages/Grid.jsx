@@ -33,7 +33,7 @@ const Grid = () => {
             boxSizing: 'border-box'
         }}>
             <input placeholder="Enter Album Title..." style={{
-
+                marginTop: '10px',
                 transform: 'translateX(50%)',
             }}/>
 
