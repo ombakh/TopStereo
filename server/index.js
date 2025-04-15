@@ -14,7 +14,7 @@ app.use(cors());
 
 // routes
 app.get('/', (req, res) => {
-    res.send('Hello, from backend!');
+    res.send('TopStereo backend is running...');
 });
 
 app.get('/api/search', async (req, res) => {

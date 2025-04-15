@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
 import topStereoLogo from "./topstereo.png";
-import plusLogo from "./plus.png";
+// import plusLogo from "./plus.png";
 
 const Grid = () => {
     const gridSize = 5; //5x5 grid
@@ -13,6 +13,8 @@ const Grid = () => {
     useEffect(() => {
         if (searchText.trim() !== "") {
             handleSearch(searchText);
+        } else {
+            setSearchResults([]);
         }
     }, [searchText]);
 
@@ -38,6 +40,16 @@ const Grid = () => {
         newGrid[index] = albumUrl;
         setGridData(newGrid);
     };
+
+    const handleAlbumClick = (albumUrl) => {
+        const firstEmptyIndex = gridData.findIndex(cell => cell === null);
+        if (firstEmptyIndex !== -1) {
+            const newGrid = [...gridData];
+            newGrid[firstEmptyIndex] = albumUrl;
+            setGridData(newGrid);
+        }
+    };
+
     const clearData = () => {
         setGridData(Array(totalCells).fill(null));
     }
@@ -58,7 +70,7 @@ const Grid = () => {
 
             <div className="search-box">
                 <input
-                    placeholder="Enter Album Title..."
+                    placeholder="Search for music..."
                     style={{
                         marginTop: '10px',
                         transform: 'translateX(50%)',
@@ -81,6 +93,7 @@ const Grid = () => {
                              alt={`album ${index + 1}`}
                              draggable
                              onDragStart={(e) => handleDragStart(e, album)}
+                             onClick={() => handleAlbumClick(album)}
                         />
                     ))}
                 </div>
@@ -101,8 +114,7 @@ const Grid = () => {
                         onDrop={(e) => handleDrop(e, i)}
                     >
 
-                            <img src={album} /*alt="album cover"*//>
-
+                        <img src={album} alt="album cover"/>
 
 
                     </div>
@@ -111,7 +123,12 @@ const Grid = () => {
             <div className="clear">
                 <button onClick={clearData}>CLEAR</button>
             </div>
+            <p className={"disclaimer"}>
+                All album covers are copyright of their respective artists/labels and are used for
+                identification/reference purposes only.
+            </p>
         </div>
+
     );
 };
 
