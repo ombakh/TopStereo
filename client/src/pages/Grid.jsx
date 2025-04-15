@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
 import topStereoLogo from "./topstereo.png";
+
+
 // import plusLogo from "./plus.png";
 
 const Grid = () => {
@@ -18,6 +20,7 @@ const Grid = () => {
         }
     }, [searchText]);
 
+    //handles api content
     const handleSearch = async (query) => {
         try {
             const response = await fetch('http://localhost:3001/api/search?q=' + encodeURIComponent(query));
@@ -49,6 +52,10 @@ const Grid = () => {
             setGridData(newGrid);
         }
     };
+    const handleHover =() => {
+        // on hover over album in grid, i want a small x to appear in the corner of the album.
+        // when clicked. it should remove the album from the grid
+    }
 
     const clearData = () => {
         setGridData(Array(totalCells).fill(null));
@@ -79,13 +86,7 @@ const Grid = () => {
                     onChange={(e) => setSearchText(e.target.value)}
                 />
 
-                <div style={{
-                    marginTop: '20px',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '10px',
-                    justifyContent: 'center'
-                }}>
+                <div className="result-field">
                     {searchResults.map((album, index) => (
                         <img className="result-cell"
                              key={index}
@@ -113,10 +114,7 @@ const Grid = () => {
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={(e) => handleDrop(e, i)}
                     >
-
-                        <img src={album} alt="album cover"/>
-
-
+                        <img src={album}/>
                     </div>
                 ))}
             </div>

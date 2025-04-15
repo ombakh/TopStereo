@@ -15,7 +15,7 @@ body {
     width: 100px;
     height: 100px;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,18 @@ body {
     overflow: hidden;
     transition: transform .2s ease;
 }
-
+.result-field {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-height: 453px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 5px;
+    background-color: transparent;
+}
 
 .result-cell {
     width: 80px;
@@ -36,6 +47,26 @@ body {
 
 
 }
+
+/*.clear {*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*    background-color: #333; !* dark background *!*/
+/*    color: white;*/
+/*    font-weight: 900;*/
+/*    font-size: 20px;*/
+/*    border: none;*/
+/*    border-radius: 50%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    cursor: pointer;*/
+/*    user-select: none;*/
+/*    box-shadow: 0 2px 5px rgba(0,0,0,0.2);*/
+/*    */
+/*}*/
+
+
 
 .grid-cell img {
     width: 100%;
@@ -71,6 +102,13 @@ body {
     position: absolute;
     top: 770px;
     left: 70%;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+.clear:hover {
+    background-color: transparent;
+    border-radius: 10px;
+    transform: scale(1.05);
 }
 .disclaimer {
     position: fixed;
