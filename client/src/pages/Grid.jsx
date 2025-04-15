@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Grid.css';
 import topStereoLogo from "./topstereo.png";
 import plusLogo from "./plus.png";
@@ -7,20 +7,26 @@ const Grid = () => {
     const gridSize = 5; //5x5 grid
     const totalCells = gridSize * gridSize;
     const [gridData, setGridData] = useState(Array(totalCells).fill(null));
-    const [searchResults] = useState([
-        "https://via.placeholder.com/100?text=Album+1",
-        "https://via.placeholder.com/100?text=Album+2",
-        "https://via.placeholder.com/100?text=Album+3",
-        "https://via.placeholder.com/100?text=Album+4",
-        "https://via.placeholder.com/100?text=Album+5",
-        "https://via.placeholder.com/100?text=Album+6",
-        "https://via.placeholder.com/100?text=Album+7",
-        "https://via.placeholder.com/100?text=Album+8",
-        "https://via.placeholder.com/100?text=Album+9",
-        "https://via.placeholder.com/100?text=Album+10",
-        "https://via.placeholder.com/100?text=Album+11",
-        "https://via.placeholder.com/100?text=Album+12"
-    ]);
+    const [searchResults, setSearchResults] = useState([]);
+    const [searchText, setSearchText] = useState("");
+
+    useEffect(() => {
+        if (searchText.trim() !== "") {
+            handleSearch(searchText);
+        }
+    }, [searchText]);
+
+    const handleSearch = async (query) => {
+        try {
+            const response = await fetch('http://localhost:3001/api/search?q=' + encodeURIComponent(query));
+            const data = await response.json();
+            const albumImages = data.map(album => album.image[2]['#text']).filter(url => url); // filter empty URLs
+            setSearchResults(albumImages);
+        } catch (err) {
+            console.error("Search failed", err);
+        }
+        if (searchText === "") {}
+    };
 
     const handleDragStart = (e, album) => {
         e.dataTransfer.setData("albumUrl", album);
@@ -51,10 +57,15 @@ const Grid = () => {
             />
 
             <div className="search-box">
-                <input placeholder="Enter Album Title..." style={{
-                    marginTop: '10px',
-                    transform: 'translateX(50%)',
-                }}/>
+                <input
+                    placeholder="Enter Album Title..."
+                    style={{
+                        marginTop: '10px',
+                        transform: 'translateX(50%)',
+                    }}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                />
 
                 <div style={{
                     marginTop: '20px',
@@ -89,13 +100,11 @@ const Grid = () => {
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={(e) => handleDrop(e, i)}
                     >
-                        {album ? (
-                            <img src={album} alt="album cover"/>
-                        ) : (
-                            <span className="placeholder">
-                                <img src={plusLogo} alt="plus.png" style={{width: '50px', height: '50px'}}/>
-                            </span>
-                        )}
+
+                            <img src={album} /*alt="album cover"*//>
+
+
+
                     </div>
                 ))}
             </div>

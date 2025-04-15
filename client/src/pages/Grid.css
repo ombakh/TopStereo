@@ -8,7 +8,9 @@
     margin: 0 auto;
     padding-top: 50px;
 }
-
+body {
+    background-color: #ffd1d6;
+}
 .grid-cell {
     width: 100px;
     height: 100px;
@@ -21,6 +23,7 @@
     overflow: hidden;
     transition: transform .2s ease;
 }
+
 
 .result-cell {
     width: 80px;

@@ -17,7 +17,7 @@ yarn-debug.log*
 pnpm-debug.log*
 
 # Environment variable files
-.env
+server/.env
 .env.*.local
 
 # IDE settings
