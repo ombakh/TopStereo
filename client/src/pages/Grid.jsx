@@ -99,6 +99,9 @@ const Grid = () => {
                     ))}
                 </div>
             </div>
+            <div className="grid-background">
+            </div>
+
             <div className="grid"
                  style={{
                      position: 'absolute',
@@ -118,6 +121,7 @@ const Grid = () => {
                     </div>
                 ))}
             </div>
+
             <div className="clear">
                 <button onClick={clearData}>CLEAR</button>
             </div>

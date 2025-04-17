@@ -105,6 +105,20 @@ body {
     border-radius: 10px;
     transition: 0.2s ease;
 }
+
+.grid-background {
+   position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
+    width: 800px;
+    height: 720px;
+    border: 2px solid #bababa;
+    border-radius: 15px;
+    background-color: #282c34;
+}
+
 .clear:hover {
     background-color: transparent;
     border-radius: 10px;
