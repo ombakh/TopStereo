@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Grid.css';
 import topStereoLogo from "./topstereo.png";
-
-
-// import plusLogo from "./plus.png";
+import html2canvas from "html2canvas";
 
 const Grid = () => {
     const gridSize = 5; //5x5 grid
@@ -11,6 +9,7 @@ const Grid = () => {
     const [gridData, setGridData] = useState(Array(totalCells).fill(null));
     const [searchResults, setSearchResults] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const gridRef = useRef(null); // for html2canvas
 
     useEffect(() => {
         if (searchText.trim() !== "") {
@@ -30,7 +29,8 @@ const Grid = () => {
         } catch (err) {
             console.error("Search failed", err);
         }
-        if (searchText === "") {}
+        if (searchText === "") {
+        }
     };
 
     const handleDragStart = (e, album) => {
@@ -52,7 +52,7 @@ const Grid = () => {
             setGridData(newGrid);
         }
     };
-    const handleHover =() => {
+    const handleHover = () => {
         // on hover over album in grid, i want a small x to appear in the corner of the album.
         // when clicked. it should remove the album from the grid
     }
@@ -61,8 +61,33 @@ const Grid = () => {
         setGridData(Array(totalCells).fill(null));
     }
 
+    const saveGridAsPNG = () => {
+        if (!gridRef.current) return;
+
+        const images = gridRef.current.querySelectorAll('img');
+        const loadPromises = Array.from(images).map(img =>
+            new Promise(resolve => {
+                if (img.complete) resolve();
+                else img.onload = img.onerror = resolve;
+            })
+        );
+
+        Promise.all(loadPromises).then(() => {
+            html2canvas(gridRef.current, {
+                useCORS: true,
+                allowTaint: false
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'topstereo-grid.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        });
+    };
+
     return (
         <div>
+
             <img
                 src={topStereoLogo}
                 alt="TopStereo Logo"
@@ -103,6 +128,7 @@ const Grid = () => {
             </div>
 
             <div className="grid"
+                 ref={gridRef}
                  style={{
                      position: 'absolute',
                      left: '50%',
@@ -117,16 +143,19 @@ const Grid = () => {
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={(e) => handleDrop(e, i)}
                     >
-                        <img src={album}/>
+                        {album ? (
+                            <img src={album} alt="Album" />
+                        ) : null}
                     </div>
                 ))}
             </div>
 
             <div className="clear">
                 <button onClick={clearData}>CLEAR</button>
+                <button onClick={saveGridAsPNG}>SAVE AS PNG</button>
             </div>
             <p className={"disclaimer"}>
-                All album covers are copyright of their respective artists/labels and are used for
+            All album covers are copyright of their respective artists/labels and are used for
                 identification/reference purposes only.
             </p>
         </div>

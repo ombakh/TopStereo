@@ -98,14 +98,6 @@ body {
     border-radius: 10px;
 }
 
-.clear {
-    position: absolute;
-    top: 770px;
-    left: 70%;
-    border-radius: 10px;
-    transition: 0.2s ease;
-}
-
 .grid-background {
    position: absolute;
 
@@ -119,6 +111,13 @@ body {
     background-color: #282c34;
 }
 
+.clear {
+    position: absolute;
+    top: 770px;
+    left: 70%;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
 .clear:hover {
     background-color: transparent;
     border-radius: 10px;
