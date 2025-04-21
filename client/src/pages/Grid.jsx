@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Grid.css';
 import topStereoLogo from "./topstereo.png";
 import html2canvas from "html2canvas";
-
+ // roll back version
 const Grid = () => {
     const gridSize = 5; //5x5 grid
     const totalCells = gridSize * gridSize;
