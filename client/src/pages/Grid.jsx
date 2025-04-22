@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './Grid.css';
 import topStereoLogo from "./topstereo.png";
 import html2canvas from "html2canvas";
@@ -11,13 +11,13 @@ const Grid = () => {
     const [searchText, setSearchText] = useState("");
     const gridRef = useRef(null); // for html2canvas
 
-    useEffect(() => {
-        if (searchText.trim() !== "") {
-            handleSearch(searchText);
-        } else {
-            setSearchResults([]);
-        }
-    }, [searchText]);
+    // useEffect(() => {
+    //     if (searchText.trim() !== "") {
+    //         handleSearch(searchText);
+    //     } else {
+    //         setSearchResults([]);
+    //     }
+    // }, [searchText]);
 
     //handles api content
     const handleSearch = async (query) => {
@@ -30,6 +30,12 @@ const Grid = () => {
             console.error("Search failed", err);
         }
         if (searchText === "") {
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && searchText.trim() !== "") {
+            handleSearch(searchText);
         }
     };
 
@@ -109,6 +115,7 @@ const Grid = () => {
                     }}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
 
                 <div className="result-field">
